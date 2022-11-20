@@ -13,14 +13,14 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.ServerSocket;
 
-public class Server_Main{
+public class Server_Main {
 
 
     public static void main(String[] args) throws IOException {
 
-             ServerSocket ss=new ServerSocket(1234);
-             Server sv=new Server(ss);
-             sv.Start();
+        ServerSocket ss = new ServerSocket(1234);
+        Server sv = new Server(ss);
+        sv.Start();
 
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override

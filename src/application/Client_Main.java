@@ -14,17 +14,18 @@ import java.net.*;
 import java.util.Random;
 
 public class Client_Main extends Application {
-    public static String welcome="welcome.fxml";
-    public static String Reg_Log="Reg_Log.fxml";
-    public static String Setting="Settings.fxml";
-    public static String Ready="Ready.fxml";
-    public static String mainUI="mainUI.fxml";
-    public static String Record="Record.fxml";
+    public static String welcome = "welcome.fxml";
+    public static String Reg_Log = "Reg_Log.fxml";
+    public static String Setting = "Settings.fxml";
+    public static String Ready = "Ready.fxml";
+    public static String mainUI = "mainUI.fxml";
+    public static String Record = "Record.fxml";
     public static Stage primary_stage;
     public static Client client;
+
     @Override
 
-    public void start(Stage stage)  {
+    public void start(Stage stage) {
 
         try {
             FXMLLoader fxmlLoader_welcome = new FXMLLoader();
@@ -36,7 +37,7 @@ public class Client_Main extends Application {
             Scene root = new Scene(welcome_pane);
             stage.setTitle("Welcome");
             stage.setScene(root);
-            primary_stage=stage;
+            primary_stage = stage;
 
             stage.show();
 
@@ -44,11 +45,6 @@ public class Client_Main extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-
-
-
 
 
     }
@@ -71,7 +67,7 @@ public class Client_Main extends Application {
 
     public static void main(String[] args) throws IOException {
 
-        client=new Client(1234);
+        client = new Client(1234);
         launch(args);
     }
 }

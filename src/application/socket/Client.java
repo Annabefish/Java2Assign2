@@ -10,19 +10,20 @@ public class Client {
     Socket socket;
     OutputStream os;
     InputStream is;
+
     public Client(int port) throws IOException {
-        this.socket=new Socket("localhost",port);
+        this.socket = new Socket("localhost", port);
         os = socket.getOutputStream();
         is = socket.getInputStream();
     }
+
     public boolean sendMessage(String s) {
         try {
-            System.out.println("send: "+s);
-            byte[] msg=(s+"end\n").getBytes();
+            System.out.println("send: " + s);
+            byte[] msg = (s + "end\n").getBytes();
             os.write(msg);
             return true;
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             return false;
         }
 
@@ -32,17 +33,16 @@ public class Client {
         InputStreamReader ipsr = new InputStreamReader(is);
         BufferedReader br = new BufferedReader(ipsr);
         String s = "";
-        StringBuilder sb=new StringBuilder();
-        while((s = br.readLine()) != null) {
-            if(s.equals("end")){
+        StringBuilder sb = new StringBuilder();
+        while ((s = br.readLine()) != null) {
+            if (s.equals("end")) {
                 break;
-            }
-            else {
-                sb.append(s+"\n");
+            } else {
+                sb.append(s + "\n");
             }
 
         }
-        System.out.println("receive: "+sb.toString());
+        System.out.println("receive: " + sb.toString());
         return sb.toString();
 //        byte[] buf = new byte[1024];
 //        int readLen=0;

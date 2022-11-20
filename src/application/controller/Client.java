@@ -36,10 +36,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-public class Client implements Initializable  {
-    public class ClientThread implements Runnable{
+public class Client implements Initializable {
+    public class ClientThread implements Runnable {
         @Override
-        public void run(){
+        public void run() {
             while (true) {
                 String str;
                 try {
@@ -52,7 +52,7 @@ public class Client implements Initializable  {
                         }
 
                     });
-                    if(str==null||str.equals("")||str.startsWith("Loc")||str.startsWith("Start")||str.startsWith("Finish")||str.startsWith("GameOver"))
+                    if (str == null || str.equals("") || str.startsWith("Loc") || str.startsWith("Start") || str.startsWith("Finish") || str.startsWith("GameOver"))
                         break;
 
                 } catch (IOException e) {
@@ -64,23 +64,24 @@ public class Client implements Initializable  {
         }
 
     }
-    private static int player=-1;//0:player1 1:player2
+
+    private static int player = -1;//0:player1 1:player2
     private static String name;
     private static String your_name;
-    private static String my_avatar="";
-    private static String your_avatar="";
-    private static boolean log_or_reg=true;
+    private static String my_avatar = "";
+    private static String your_avatar = "";
+    private static boolean log_or_reg = true;
     private static String my_chess;
     private static String your_chess;
-    private boolean gameOver=false;
-    private int tmp_chose_x=-1;
-    private int tmp_chose_y=-1;
+    private boolean gameOver = false;
+    private int tmp_chose_x = -1;
+    private int tmp_chose_y = -1;
     private Rectangle rect = new Rectangle();
     private static boolean TURN = false;//false:player1 true:player2
     private int[][] chessBoard = new int[3][3];
     private boolean[][] flag = new boolean[3][3];
-    private String tmp_chess_num="1";
-    private String tmp_avatar=null;
+    private String tmp_chess_num = "1";
+    private String tmp_avatar = null;
 
 
     private static final int PLAY_1 = 1;
@@ -160,10 +161,7 @@ public class Client implements Initializable  {
     private Label Total;
 
 
-
-
-
-    private void SwitchScene(String name,String title){
+    private void SwitchScene(String name, String title) {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getClassLoader().getResource(name));
         Pane pane;
@@ -179,46 +177,45 @@ public class Client implements Initializable  {
         Client_Main.primary_stage.show();
 
     }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println(location.toString());
-        if(location.toString().contains("welcome.fxml")) {
+        if (location.toString().contains("welcome.fxml")) {
             Login.setOnMouseClicked(event -> {
                 System.out.println("click login");
                 //welcome->log
-                log_or_reg=true;
-                SwitchScene(Client_Main.Reg_Log,"log in");
+                log_or_reg = true;
+                SwitchScene(Client_Main.Reg_Log, "log in");
             });
             Register.setOnMouseClicked(event -> {//welcome->reg
                 System.out.println("click reg");
-                log_or_reg=false;
-                SwitchScene(Client_Main.Reg_Log,"register");
+                log_or_reg = false;
+                SwitchScene(Client_Main.Reg_Log, "register");
 
             });
-        }
-        else if(location.toString().contains("Reg_Log.fxml")){
-            if(log_or_reg){
+        } else if (location.toString().contains("Reg_Log.fxml")) {
+            if (log_or_reg) {
                 System.out.println("log");
                 Reg_Log_Title.setText("Log in");
                 Reg_Log_Button.setText("Log");
-            }
-            else{
+            } else {
                 System.out.println("reg");
                 Reg_Log_Title.setText("Register");
                 Reg_Log_Button.setText("Reg");
             }
             Reg_Log_Button.setOnMouseClicked(event -> {
-                name=Reg_Log_Text.getText();
-                String tmp_password=Password.getText();
+                name = Reg_Log_Text.getText();
+                String tmp_password = Password.getText();
                 System.out.println(name);
                 System.out.println(tmp_password);
-                if(log_or_reg)
-                    Client_Main.client.sendMessage("Login\n"+name+"\n"+tmp_password+"\n");
+                if (log_or_reg)
+                    Client_Main.client.sendMessage("Login\n" + name + "\n" + tmp_password + "\n");
                 else
-                    Client_Main.client.sendMessage("Register\n"+name+"\n"+tmp_password+"\n");
+                    Client_Main.client.sendMessage("Register\n" + name + "\n" + tmp_password + "\n");
                 String get;
                 try {
-                    get=Client_Main.client.getMessage();
+                    get = Client_Main.client.getMessage();
                     handleMessage(get);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -226,15 +223,14 @@ public class Client implements Initializable  {
                 //log->ready
             });
             back.setOnMouseClicked(event -> {
-                SwitchScene(Client_Main.welcome,"TIC-TAC-TOE");
+                SwitchScene(Client_Main.welcome, "TIC-TAC-TOE");
             });
-        }
-        else if(location.toString().contains("Ready.fxml")){
+        } else if (location.toString().contains("Ready.fxml")) {
             Name.setText(name);
             New_game.setOnMouseClicked(event -> {
                 Waiting.setVisible(true);
                 Waiting.setText("Waiting...");
-                Client_Main.client.sendMessage("Start\n"+name+"\n"+my_avatar+"\n"+my_chess+"\n");
+                Client_Main.client.sendMessage("Start\n" + name + "\n" + my_avatar + "\n" + my_chess + "\n");
                 String s;
                 new Thread(new ClientThread()).start();
 //                try {
@@ -247,24 +243,24 @@ public class Client implements Initializable  {
             Settings.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    SwitchScene(Client_Main.Setting,"setting");
+                    SwitchScene(Client_Main.Setting, "setting");
                 }
             });
 
             Log_out.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    Client_Main.client.sendMessage("LogOut\n"+name+"\n"+my_avatar+"\n"+my_chess+"\n");
-                    SwitchScene(Client_Main.welcome,"welcome");
-                    player=-1;
-                    name="";
-                    my_avatar="";
-                    your_avatar="";
-                    log_or_reg=true;
-                    my_chess="";
-                    your_chess="";
-                    tmp_chose_x=-1;
-                    tmp_chose_y=-1;
+                    Client_Main.client.sendMessage("LogOut\n" + name + "\n" + my_avatar + "\n" + my_chess + "\n");
+                    SwitchScene(Client_Main.welcome, "welcome");
+                    player = -1;
+                    name = "";
+                    my_avatar = "";
+                    your_avatar = "";
+                    log_or_reg = true;
+                    my_chess = "";
+                    your_chess = "";
+                    tmp_chose_x = -1;
+                    tmp_chose_y = -1;
                     TURN = false;
                     chessBoard = new int[3][3];
                     flag = new boolean[3][3];
@@ -275,55 +271,53 @@ public class Client implements Initializable  {
                 @Override
                 public void handle(ActionEvent event) {
 
-                   SwitchScene(Client_Main.Record,"Record");
+                    SwitchScene(Client_Main.Record, "Record");
                 }
             });
 //            Data.setOnMouseClicked(event -> {
 //                //data shoe
 //            });
-        }
-        else if(location.toString().contains("mainUI.fxml")){
+        } else if (location.toString().contains("mainUI.fxml")) {
             P1_waiting.setText("Waiting");
             P2_waiting.setText("Waiting");
-            System.out.println("my name:"+name);
-            System.out.println("your name:"+your_name);
-            if(player==0){
+            System.out.println("my name:" + name);
+            System.out.println("your name:" + your_name);
+            if (player == 0) {
                 Player1_Label.setText(name);
-                if(my_avatar!=null&&!my_avatar.equals("")){
+                if (my_avatar != null && !my_avatar.equals("")) {
                     P1_avatar.setImage(new Image(my_avatar));
                 }
                 Player2_Label.setText(your_name);
-                if(your_avatar!=null&&!your_avatar.equals("")){
+                if (your_avatar != null && !your_avatar.equals("")) {
                     P2_avatar.setImage(new Image(your_avatar));
                 }
-            }
-            else{
+            } else {
                 Player2_Label.setText(name);
-                if(my_avatar!=null&&!my_avatar.equals("")){
+                if (my_avatar != null && !my_avatar.equals("")) {
                     P2_avatar.setImage(new Image(my_avatar));
                 }
                 Player1_Label.setText(your_name);
-                if(your_avatar!=null&&!your_avatar.equals("")){
+                if (your_avatar != null && !your_avatar.equals("")) {
                     P1_avatar.setImage(new Image(your_avatar));
                 }
             }
             showWaiting();
             game_panel.setOnMouseClicked(event -> {
-                if((player==0&&!TURN)||(player==1&&TURN)){
+                if ((player == 0 && !TURN) || (player == 1 && TURN)) {
                     int x = (int) (event.getX() / BOUND);
                     int y = (int) (event.getY() / BOUND);
-                    if(chessBoard[x][y]==0) {
-                        if(tmp_chose_y!=-1&&tmp_chose_x!=-1){
+                    if (chessBoard[x][y] == 0) {
+                        if (tmp_chose_y != -1 && tmp_chose_x != -1) {
                             deleteSquare();
                         }
-                        drawSquare(x,y);
-                        tmp_chose_x=x;
-                        tmp_chose_y=y;
+                        drawSquare(x, y);
+                        tmp_chose_x = x;
+                        tmp_chose_y = y;
                     }
                 }
             });
-            Chess_Confirm.setOnMouseClicked(event->{
-                if(!gameOver) {
+            Chess_Confirm.setOnMouseClicked(event -> {
+                if (!gameOver) {
                     Client_Main.client.sendMessage("Loc\n" + intToString(tmp_chose_x) + " " + intToString(tmp_chose_y) + "\n");
                     if ((player == 0 && !TURN) || (player == 1 && TURN)) {
                         if (refreshBoard(tmp_chose_x, tmp_chose_y)) {
@@ -340,72 +334,70 @@ public class Client implements Initializable  {
 //                        throw new RuntimeException(e);
 //                    }
                     }
-                }
-                else{
-                    SwitchScene(Client_Main.Ready,"Ready");
+                } else {
+                    SwitchScene(Client_Main.Ready, "Ready");
                 }
 
             });
-            if(player==1){
-                Runnable clientThread=new ClientThread();
+            if (player == 1) {
+                Runnable clientThread = new ClientThread();
                 new Thread(clientThread).start();
             }
-        }
-        else if(location.toString().contains("Settings.fxml")){
-            if(my_chess!=null)
-                tmp_chess_num=my_chess;
+        } else if (location.toString().contains("Settings.fxml")) {
+            if (my_chess != null)
+                tmp_chess_num = my_chess;
             else
-                tmp_chess_num="1";
+                tmp_chess_num = "1";
             chooseChess();
-            if(my_avatar!=null&&!my_avatar.equals("")) {
+            if (my_avatar != null && !my_avatar.equals("")) {
                 Avatar_image.setImage(new Image(my_avatar));
             }
-            Avatar_pane.setOnMouseClicked(event->{
+            Avatar_pane.setOnMouseClicked(event -> {
                 FileChooser fileChooser = new FileChooser();
                 fileChooser.getExtensionFilters().addAll(
                         new FileChooser.ExtensionFilter("PNG Files", "*.PNG")
-                        ,new FileChooser.ExtensionFilter("JPG Files", "*.JPG")
+                        , new FileChooser.ExtensionFilter("JPG Files", "*.JPG")
                 );
                 fileChooser.setInitialDirectory(new File("D:\\lsy\\java2\\lab\\A2\\Tic-tac-toe\\resources\\image"));
                 File selectedFile = fileChooser.showOpenDialog(Client_Main.primary_stage);
-                if(selectedFile!=null){
-                    Image tmp_image=new Image("file:"+selectedFile.getPath());
+                if (selectedFile != null) {
+                    Image tmp_image = new Image("file:" + selectedFile.getPath());
                     Avatar_pane.getChildren().remove(Avatar_image);
-                    Avatar_image=new ImageView(tmp_image);
+                    Avatar_image = new ImageView(tmp_image);
                     Avatar_image.setImage(tmp_image);
                     Avatar_image.setFitWidth(140);
                     Avatar_image.setFitHeight(140);
                     Avatar_pane.getChildren().add(Avatar_image);
-                    tmp_avatar="file:"+selectedFile.getPath();
+                    tmp_avatar = "file:" + selectedFile.getPath();
                     System.out.println(tmp_avatar);
                 }
             });
             avatar_set.setOnMouseClicked(event -> {
-                my_avatar=tmp_avatar;
+                my_avatar = tmp_avatar;
             });
             Chess_1_pane.setOnMouseClicked(event -> {
-                if(!tmp_chess_num.equals("1")) {
+                if (!tmp_chess_num.equals("1")) {
                     dontChooseChess();
                     tmp_chess_num = "1";
                     chooseChess();
                 }
             });
             Chess_2_pane.setOnMouseClicked(event -> {
-                if(!tmp_chess_num.equals("2")) {
+                if (!tmp_chess_num.equals("2")) {
                     dontChooseChess();
                     tmp_chess_num = "2";
                     chooseChess();
                 }
             });
             Chess_3_pane.setOnMouseClicked(event -> {
-                if(!tmp_chess_num.equals("3")) {
+                if (!tmp_chess_num.equals("3")) {
                     dontChooseChess();
                     tmp_chess_num = "3";
                     chooseChess();
                 }
             });
             Chess_4_pane.setOnMouseClicked(event -> {
-                if(!tmp_chess_num.equals("4")) {
+                if (!tmp_chess_num.equals("4")) {
                     dontChooseChess();
                     tmp_chess_num = "4";
                     chooseChess();
@@ -413,38 +405,38 @@ public class Client implements Initializable  {
             });
 
             chess_set.setOnMouseClicked(event -> {
-                my_chess=tmp_chess_num;
+                my_chess = tmp_chess_num;
             });
-            Back.setOnMouseClicked(event->{
-                SwitchScene(Client_Main.Ready,"Ready");
+            Back.setOnMouseClicked(event -> {
+                SwitchScene(Client_Main.Ready, "Ready");
             });
-        }
-        else if(location.toString().contains("Record.fxml")){
-            Back.setOnMouseClicked(event->{
-                SwitchScene(Client_Main.Ready,"Ready");
+        } else if (location.toString().contains("Record.fxml")) {
+            Back.setOnMouseClicked(event -> {
+                SwitchScene(Client_Main.Ready, "Ready");
             });
             Client_Main.client.sendMessage("Record\n");
             String s;
             try {
-                s=Client_Main.client.getMessage();
+                s = Client_Main.client.getMessage();
                 handleMessage(s);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
     }
-    private void showWaiting(){
-        if(TURN){
+
+    private void showWaiting() {
+        if (TURN) {
             P2_waiting.setVisible(true);
             P1_waiting.setVisible(false);
-        }
-        else{
+        } else {
             P2_waiting.setVisible(false);
             P1_waiting.setVisible(true);
         }
     }
-    private void chooseChess(){
-        switch (tmp_chess_num){
+
+    private void chooseChess() {
+        switch (tmp_chess_num) {
             case "1":
                 Chess_1_pane.setStyle("-fx-background-color: #ffefdd");
                 break;
@@ -459,8 +451,9 @@ public class Client implements Initializable  {
                 break;
         }
     }
-    private void dontChooseChess(){
-        switch (tmp_chess_num){
+
+    private void dontChooseChess() {
+        switch (tmp_chess_num) {
             case "1":
                 Chess_1_pane.setStyle("-fx-background-color: #ffefff");
                 break;
@@ -475,13 +468,15 @@ public class Client implements Initializable  {
                 break;
         }
     }
-    private void deleteSquare(){
+
+    private void deleteSquare() {
         base_square.getChildren().remove(rect);
     }
-    private void drawSquare(int x,int y){
+
+    private void drawSquare(int x, int y) {
         base_square.getChildren().add(rect);
-        rect.setX(x * BOUND  + OFFSET);
-        rect.setY(y * BOUND  + OFFSET);
+        rect.setX(x * BOUND + OFFSET);
+        rect.setY(y * BOUND + OFFSET);
         rect.setHeight(BOUND);
         rect.setWidth(BOUND);
         rect.setStroke(Color.CYAN);
@@ -489,48 +484,57 @@ public class Client implements Initializable  {
     }
 
 
-
-    private String intToString(int x){
-        switch(x){
-            case 1: return "1";
-            case 2: return "2";
-            case 3: return "3";
-            case 4: return "4";
-            case 5: return "5";
-            case 6: return "6";
-            case 7: return "7";
-            case 8: return "8";
-            case 9: return "9";
-            case 0: return "0";
+    private String intToString(int x) {
+        switch (x) {
+            case 1:
+                return "1";
+            case 2:
+                return "2";
+            case 3:
+                return "3";
+            case 4:
+                return "4";
+            case 5:
+                return "5";
+            case 6:
+                return "6";
+            case 7:
+                return "7";
+            case 8:
+                return "8";
+            case 9:
+                return "9";
+            case 0:
+                return "0";
         }
         return null;
     }
 
-    private boolean refreshBoard (int x, int y) {
+    private boolean refreshBoard(int x, int y) {
         if (chessBoard[x][y] == EMPTY) {
             chessBoard[x][y] = TURN ? PLAY_1 : PLAY_2;
-            drawChess(chessBoard[x][y]-1,x,y);
+            drawChess(chessBoard[x][y] - 1, x, y);
             return true;
         }
         return false;
     }
-    private void showGameOver(int i){
+
+    private void showGameOver(int i) {
         Chess_Confirm.setText("Back");
-        gameOver=true;
+        gameOver = true;
         P1_waiting.setVisible(true);
         P2_waiting.setVisible(true);
-        if(i==1){
-            if(player==0){
+        if (i == 1) {
+            if (player == 0) {
                 P1_waiting.setText("Win");
                 P2_waiting.setText("Lose");
             }
-            if(player==1){
+            if (player == 1) {
                 P2_waiting.setText("Win");
                 P1_waiting.setText("Lose");
             }
-        }
-        else{
-            if(i==2) {
+        } else {
+            if (i == 2) {
                 if (player == 0) {
                     P2_waiting.setText("Win");
                     P1_waiting.setText("Lose");
@@ -539,22 +543,21 @@ public class Client implements Initializable  {
                     P1_waiting.setText("Win");
                     P2_waiting.setText("Lose");
                 }
-            }
-            else{
+            } else {
                 P2_waiting.setText("Even");
                 P1_waiting.setText("Even");
             }
         }
     }
-    private void drawChess (int new_player,int i,int j) {
+
+    private void drawChess(int new_player, int i, int j) {
         Image image;
-        if(new_player==player){
-            image=new Image("file:.//resources//image//Chess//"+your_chess+"_"+intToString(2-player)+".PNG");
+        if (new_player == player) {
+            image = new Image("file:.//resources//image//Chess//" + your_chess + "_" + intToString(2 - player) + ".PNG");
+        } else {
+            image = new Image("file:.//resources//image//Chess//" + my_chess + "_" + intToString(player + 1) + ".PNG");
         }
-        else{
-            image=new Image("file:.//resources//image//Chess//"+my_chess+"_"+intToString(player+1)+".PNG");
-        }
-        ImageView iv=new ImageView(image);
+        ImageView iv = new ImageView(image);
         base_square.getChildren().add(iv);
         iv.setFitHeight(BOUND);
         iv.setFitWidth(BOUND);
@@ -583,7 +586,7 @@ public class Client implements Initializable  {
 //        }
     }
 
-//    private void drawCircle (int i, int j) {
+    //    private void drawCircle (int i, int j) {
 //        Circle circle = new Circle();
 //        base_square.getChildren().add(circle);
 //        circle.setCenterX(i * BOUND + BOUND / 2.0 + OFFSET);
@@ -613,86 +616,81 @@ public class Client implements Initializable  {
 //        flag[i][j] = true;
 //    }
     private boolean handleMessage(String message) throws IOException {
-        String[] array=message.split("\n");
-        if(array[0].contains("Loc")) {
-            String[] title= array[0].split(" ");
+        String[] array = message.split("\n");
+        if (array[0].contains("Loc")) {
+            String[] title = array[0].split(" ");
             System.out.println("location");
             String[] loc = array[1].split(" ");
             int row = Integer.parseInt(loc[0]);
             int col = Integer.parseInt(loc[1]);
             deleteSquare();
-            refreshBoard(row,col);
-            TURN=!TURN;
+            refreshBoard(row, col);
+            TURN = !TURN;
 
-            if(title.length>1){
-                if(title[1].equals("Win")){
+            if (title.length > 1) {
+                if (title[1].equals("Win")) {
                     showGameOver(1);
-                }
-                else{
-                    if(title[1].equals("Lose")){
+                } else {
+                    if (title[1].equals("Lose")) {
                         showGameOver(2);
-                    }
-                    else{
+                    } else {
                         showGameOver(0);
                     }
                 }
-            }
-            else{
+            } else {
                 showWaiting();
             }
         }
-        if(array[0].equals("Start")){
-            player=Integer.parseInt(array[1]);
-            System.out.println("I'm player "+ array[1]);
-            your_name=array[2];
-            your_avatar=array[3];
-            your_chess=array[4];
-            TURN=false;
-            SwitchScene(Client_Main.mainUI,"TIC-TAC-TOE");
+        if (array[0].equals("Start")) {
+            player = Integer.parseInt(array[1]);
+            System.out.println("I'm player " + array[1]);
+            your_name = array[2];
+            your_avatar = array[3];
+            your_chess = array[4];
+            TURN = false;
+            SwitchScene(Client_Main.mainUI, "TIC-TAC-TOE");
         }
-        if(array[0].equals("GameOver")){
+        if (array[0].equals("GameOver")) {
             System.out.println("GameOver");
             System.out.println(array[1]);
-            if(array[1].equals("win")){
+            if (array[1].equals("win")) {
                 showGameOver(1);
-            }
-            else if(array[1].equals("lose")){
+            } else if (array[1].equals("lose")) {
                 showGameOver(2);
-            }else {
+            } else {
                 showGameOver(0);
             }
-            TURN=false;
+            TURN = false;
             return true;
         }
-        if(array[0].equals("RegWrong")){
+        if (array[0].equals("RegWrong")) {
             Reg_Log_text.setText("Name Exist, Please change another one");
         }
-        if(array[0].equals("LogWrong")){
+        if (array[0].equals("LogWrong")) {
             Reg_Log_text.setText("Password or Userword wrong, Please enter again");
         }
 
-        if(array[0].equals("LogIn")){
+        if (array[0].equals("LogIn")) {
             System.out.println("LogIn");
-            name=array[1];
-            my_avatar=array[2];
-            my_chess=array[3];
+            name = array[1];
+            my_avatar = array[2];
+            my_chess = array[3];
 
-            SwitchScene(Client_Main.Ready,"Ready");
+            SwitchScene(Client_Main.Ready, "Ready");
         }
-        if(array[0].equals("Record")){
+        if (array[0].equals("Record")) {
 
             Win.setText(array[1]);
             Total.setText(array[2]);
 
         }
-        if(array[0].equals("Finish")){
-            if(player==0){
+        if (array[0].equals("Finish")) {
+            if (player == 0) {
                 P2_waiting.setText("Quit");
-                gameOver=true;
-            }
-            else{
+                gameOver = true;
+            } else {
                 P1_waiting.setText("Quit");
-                gameOver=true;
+                gameOver = true;
             }
             return true;
         }
