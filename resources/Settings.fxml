@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.Client">
+   <children>
+      <ImageView fitHeight="419.0" fitWidth="606.0">
+         <image>
+            <Image url="@image/example.jpg" />
+         </image>
+      </ImageView>
+      <Pane layoutX="14.0" layoutY="15.0" prefHeight="369.0" prefWidth="572.0" style="-fx-background-color: white;">
+         <children>
+            <Button fx:id="avatar_set" layoutX="458.0" layoutY="135.0" mnemonicParsing="false" prefHeight="3.0" prefWidth="100.0" style="-fx-background-color: #098f9f;" text="set" textFill="#d9ffff" />
+            <Label fx:id="Name_label" layoutX="14.0" layoutY="7.0" prefHeight="81.0" prefWidth="186.0" text="NAME" textAlignment="CENTER" textFill="#deedf5">
+               <font>
+                  <Font name="Palatino Linotype Bold" size="49.0" />
+               </font>
+            </Label>
+            <Button fx:id="chess_set" layoutX="458.0" layoutY="288.0" mnemonicParsing="false" prefHeight="3.0" prefWidth="100.0" style="-fx-background-color: #098f9f;" text="set" textFill="#d9ffff" />
+            <Label layoutX="14.0" layoutY="135.0" prefHeight="36.0" prefWidth="100.0" text="Avatar" textAlignment="CENTER" textFill="#b1acda">
+               <font>
+                  <Font name="Palatino Linotype Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="288.0" prefHeight="36.0" prefWidth="100.0" text="Chess icon" textAlignment="CENTER" textFill="#b1acda">
+               <font>
+                  <Font name="Palatino Linotype Bold" size="14.0" />
+               </font>
+            </Label>
+            <Pane fx:id="Avatar_pane" layoutX="141.0" layoutY="91.0" prefHeight="140.0" prefWidth="140.0" style="-fx-background-color: transparent;">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="140.0" stroke="#9cb1dd" strokeType="INSIDE" width="140.0" />
+                  <ImageView id="avatar_image" fx:id="Avatar_image" fitHeight="140.0" fitWidth="140.0" layoutX="1.0" layoutY="1.0" />
+               </children>
+            </Pane>
+            <Pane fx:id="Chess_2_pane" layoutX="200.0" layoutY="277.0" prefHeight="72.0" prefWidth="70.0" style="-fx-background-color: #ffefff;">
+               <children>
+                  <ImageView fx:id="Chess_2_image" fitHeight="72.0" fitWidth="70.0">
+                     <image>
+                        <Image url="@image/Chess/2_1.PNG" />
+                     </image></ImageView>
+               </children>
+            </Pane>
+            <Pane fx:id="Chess_1_pane" layoutX="121.0" layoutY="277.0" prefHeight="72.0" prefWidth="70.0" style="-fx-background-color: #ffefff;">
+               <children>
+                  <ImageView fx:id="Chess_1_image" fitHeight="72.0" fitWidth="70.0">
+                     <image>
+                        <Image url="@image/Chess/1_1.PNG" />
+                     </image></ImageView>
+               </children>
+            </Pane>
+            <Pane fx:id="Chess_3_pane" layoutX="286.0" layoutY="277.0" prefHeight="72.0" prefWidth="70.0" style="-fx-background-color: #ffefff;">
+               <children>
+                  <ImageView fx:id="Chess_3_image" fitHeight="72.0" fitWidth="70.0">
+                     <image>
+                        <Image url="@image/Chess/3_1.PNG" />
+                     </image></ImageView>
+               </children>
+            </Pane>
+            <Pane fx:id="Chess_4_pane" layoutX="366.0" layoutY="277.0" prefHeight="72.0" prefWidth="70.0" style="-fx-background-color: #ffefff;">
+               <children>
+                  <ImageView fx:id="Chess_4_image" fitHeight="72.0" fitWidth="70.0" layoutX="-1.0" layoutY="-1.0">
+                     <image>
+                        <Image url="@image/Chess/4_1.PNG" />
+                     </image></ImageView>
+               </children>
+            </Pane>
+            <Button fx:id="Back" layoutX="458.0" layoutY="11.0" mnemonicParsing="false" prefHeight="3.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="&lt;-back" textFill="#b4b6e8" />
+         </children>
+      </Pane>
+   </children>
+</Pane>

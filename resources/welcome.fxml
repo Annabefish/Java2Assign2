@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.Client">
+   <children>
+      <Pane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <ImageView fitHeight="419.0" fitWidth="606.0">
+               <image>
+                  <Image url="@image/example.jpg" />
+               </image>
+            </ImageView>
+            <Label layoutX="127.0" layoutY="79.0" prefHeight="95.0" prefWidth="352.0" text="TIC-TAC-TOE" textAlignment="CENTER" textFill="#deedf5">
+               <font>
+                  <Font name="Palatino Linotype Bold" size="49.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Button fx:id="Login" layoutX="226.0" layoutY="200.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="148.0" style="-fx-background-color: #098f9f;" text="Log in" textFill="#d9ffff" />
+      <Button fx:id="Register" layoutX="226.0" layoutY="279.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="148.0" style="-fx-background-color: #098f9f;" text="Register" textFill="#d9ffff" />
+   </children>
+</Pane>

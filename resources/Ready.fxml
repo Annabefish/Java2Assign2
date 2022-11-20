@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.Client">
+   <children>
+      <Pane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <ImageView fitHeight="419.0" fitWidth="606.0">
+               <image>
+                  <Image url="@image/example.jpg" />
+               </image>
+            </ImageView>
+            <Label layoutX="128.0" layoutY="83.0" prefHeight="95.0" prefWidth="350.0" text="TIC-TAC-TOE" textAlignment="CENTER" textFill="#deedf5">
+               <font>
+                  <Font name="Palatino Linotype Bold" size="49.0" />
+               </font>
+            </Label>
+            <Button fx:id="New_game" layoutX="176.0" layoutY="234.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="255.0" style="-fx-background-color: #098f9f;" text="New Game" textFill="#d9ffff" />
+            <MenuButton fx:id="Name" layoutX="487.0" layoutY="20.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="107.0" style="-fx-background-color: transparent;" text="Name" textAlignment="RIGHT" textFill="#e1d8f0" underline="true">
+              <items>
+                <MenuItem fx:id="Settings" mnemonicParsing="false" text="Settings" />
+                <MenuItem fx:id="Log_out" mnemonicParsing="false" text="Log out" />
+                  <MenuItem fx:id="Record" mnemonicParsing="false" text="Record" />
+              </items>
+            </MenuButton>
+            <Label fx:id="Waiting" layoutX="142.0" layoutY="304.0" prefHeight="95.0" prefWidth="420.0" textAlignment="CENTER" textFill="#ffe3f2">
+               <font>
+                  <Font name="Palatino Linotype Bold" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</Pane>

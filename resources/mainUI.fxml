@@ -1,17 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="application.controller.Controller">
-   <Pane id="base" fx:id="base_square" layoutX="150.0" layoutY="50.0" prefHeight="300.0" prefWidth="300.0">
-      <Rectangle fx:id="game_panel" arcHeight="5.0" arcWidth="5.0" fill="#f2f2f2" height="270.0" layoutX="15.0"
-                 layoutY="15.0" stroke="BLACK" strokeType="INSIDE" width="270.0"/>
-      <Line endX="170.0" layoutX="115.0" layoutY="105.0" startX="-100.0"/>
-      <Line endX="170.0" layoutX="115.0" layoutY="195.0" startX="-100.0"/>
-      <Line endX="170.0" layoutX="70.0" layoutY="150.0" rotate="270.0" startX="-100.0"/>
-      <Line endX="170.0" layoutX="160.0" layoutY="151.0" rotate="90.0" startX="-100.0"/>
-   </Pane>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.Client">
+   <children>
+      <ImageView fitHeight="446.0" fitWidth="600.0">
+         <image>
+            <Image url="@image/example.jpg" />
+         </image>
+      </ImageView>
+      <Pane fx:id="Player1" prefHeight="232.0" prefWidth="164.0">
+         <children>
+            <ImageView fx:id="P1_avatar" fitHeight="164.0" fitWidth="164.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="P1_waiting" layoutX="23.0" layoutY="202.0" prefHeight="32.0" prefWidth="118.0" text="Waiting..." textFill="#ffb2b2">
+               <font>
+                  <Font name="Palatino Linotype" size="23.0" />
+               </font>
+            </Label>
+            <Label fx:id="Player1_Label" layoutX="10.0" layoutY="10.0" prefHeight="32.0" prefWidth="75.0" text="Player1" textFill="#ced2eb">
+               <font>
+                  <Font name="Palatino Linotype" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane id="base" fx:id="base_square" layoutX="150.0" layoutY="50.0" prefHeight="300.0" prefWidth="300.0">
+         <children>
+            <Rectangle fx:id="game_panel" arcHeight="5.0" arcWidth="5.0" fill="#f2f2f2" height="270.0" layoutX="15.0" layoutY="15.0" stroke="#7dddce" strokeType="INSIDE" width="270.0" />
+            <Line endX="170.0" layoutX="115.0" layoutY="105.0" startX="-100.0" stroke="#7dddce" />
+            <Line endX="170.0" layoutX="115.0" layoutY="195.0" startX="-100.0" stroke="#7dddce" />
+            <Line endX="170.0" layoutX="70.0" layoutY="150.0" rotate="270.0" startX="-100.0" stroke="#7dddce" />
+            <Line endX="170.0" layoutX="160.0" layoutY="151.0" rotate="90.0" startX="-100.0" stroke="#7dddce" />
+         </children>
+      </Pane>
+      <Pane fx:id="Player2_Pane" layoutX="436.0" layoutY="168.0" prefHeight="232.0" prefWidth="164.0">
+         <children>
+            <Label fx:id="Player2_Label" prefHeight="32.0" prefWidth="75.0" text="Player2" textFill="#ced2eb">
+               <font>
+                  <Font name="Palatino Linotype" size="18.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="P2_avatar" fitHeight="164.0" fitWidth="164.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="P2_waiting" layoutX="32.0" layoutY="202.0" prefHeight="32.0" prefWidth="118.0" text="Waiting..." textFill="#ffb2b2">
+               <font>
+                  <Font name="Palatino Linotype" size="23.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Button fx:id="Chess_Confirm" layoutX="259.0" layoutY="374.0" mnemonicParsing="false" style="-fx-background-color: #dbddf4;" text="Confirm" />
+   </children>
 </AnchorPane>

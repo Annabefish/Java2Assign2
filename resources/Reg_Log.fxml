@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.Client">
+   <children>
+      <ImageView fitHeight="419.0" fitWidth="606.0">
+         <image>
+            <Image url="@image/example.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="81.0" layoutY="143.0" prefHeight="43.0" prefWidth="120.0" text="User name:" textAlignment="CENTER" textFill="#deedf5">
+         <font>
+            <Font name="Palatino Linotype Bold" size="22.0" />
+         </font>
+      </Label>
+      <TextField fx:id="Reg_Log_Text" layoutX="213.0" layoutY="146.0" />
+      <Button fx:id="Reg_Log_Button" layoutX="438.0" layoutY="350.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="148.0" style="-fx-background-color: #098f9f;" text="Register" textFill="#d9ffff" />
+      <Label layoutX="88.0" layoutY="211.0" prefHeight="36.0" prefWidth="107.0" text="Password:" textAlignment="CENTER" textFill="#deedf5">
+         <font>
+            <Font name="Palatino Linotype Bold" size="22.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="Password" layoutX="213.0" layoutY="211.0" />
+      <Label fx:id="Reg_Log_text" layoutX="235.0" layoutY="279.0" prefHeight="27.0" prefWidth="332.0" textFill="#ffe8d1">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="Reg_Log_Title" layoutX="226.0" layoutY="55.0" prefHeight="63.0" prefWidth="148.0" text="Register" textAlignment="CENTER" textFill="#deedf5">
+         <font>
+            <Font name="Palatino Linotype Bold" size="37.0" />
+         </font>
+      </Label>
+      <Button fx:id="back" layoutX="438.0" layoutY="19.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="148.0" style="-fx-background-color: transparent;" text="&lt;- back" textFill="#d7ddf2" />
+   </children>
+</Pane>

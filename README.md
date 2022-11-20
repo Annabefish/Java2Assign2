@@ -56,4 +56,4 @@ This is a demo view for the assignment. However, the basic functions are not com
 
 ## Hint
 
-You need to first decouple the view and controller, divide the controller into two components: **client** and **server**, and then use **socket** to communicate between the two components to complete the basic functions.
+You need to first decouple the view and controller, divide the controller into two components: **client** and **server**, and then use **application.socket** to communicate between the two components to complete the basic functions.
