@@ -42,10 +42,10 @@ public class Client implements Initializable {
 
             } catch (IOException e) {
                 Platform.runLater(() -> {
-                try {
-                    handleMessage("ServerDown\n");
-                } catch (IOException ex) {
-                }
+                    try {
+                        handleMessage("ServerDown\n");
+                    } catch (IOException ex) {
+                    }
                 });
             }
             System.out.println("thread end");
@@ -64,15 +64,15 @@ public class Client implements Initializable {
     private boolean gameOver = false;
     private int tmp_chose_x = -1;
     private int tmp_chose_y = -1;
-    private boolean startWaiting=false;
-    private static int state=0;//0:welcome 1:reg/log 2:ready 3:mainUI 4 settings 5
+    private boolean startWaiting = false;
+    private static int state = 0;//0:welcome 1:reg/log 2:ready 3:mainUI 4 settings 5
     private Rectangle rect = new Rectangle();
     private static boolean TURN = false;//false:player1 true:player2
     private int[][] chessBoard = new int[3][3];
     private boolean[][] flag = new boolean[3][3];
     private String tmp_chess_num = "1";
     private String tmp_avatar = null;
-    private static Thread t1=null;
+    private static Thread t1 = null;
 
     private static final int PLAY_1 = 1;
     private static final int PLAY_2 = 2;
@@ -173,14 +173,15 @@ public class Client implements Initializable {
         Client_Main.primary_stage.show();
 
     }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if(!location.toString().contains("welcome.fxml")&&!location.toString().contains("Settings.fxml")&&!location.toString().contains("ServerDown.fxml")){
-            t1=new Thread(new ClientThread());
+        if (!location.toString().contains("welcome.fxml") && !location.toString().contains("Settings.fxml") && !location.toString().contains("ServerDown.fxml")) {
+            t1 = new Thread(new ClientThread());
             t1.start();
         }
         if (location.toString().contains("welcome.fxml")) {
-            state=0;
+            state = 0;
             Login.setOnMouseClicked(event -> {
                 System.out.println("click login");
                 //welcome->log
@@ -194,7 +195,7 @@ public class Client implements Initializable {
 
             });
         } else if (location.toString().contains("Reg_Log.fxml")) {
-            state=1;
+            state = 1;
             if (log_or_reg) {
                 System.out.println("log");
                 Reg_Log_Title.setText("Log in");
@@ -205,10 +206,9 @@ public class Client implements Initializable {
                 Reg_Log_Button.setText("Reg");
             }
             Reg_Log_Button.setOnMouseClicked(event -> {
-                if(Reg_Log_text==null){
+                if (Reg_Log_text == null) {
                     System.out.println("is null");
-                }
-                else{
+                } else {
                     System.out.println("not null");
                 }
                 name = Reg_Log_Text.getText();
@@ -232,10 +232,10 @@ public class Client implements Initializable {
                 SwitchScene(Client_Main.welcome, "TIC-TAC-TOE");
             });
         } else if (location.toString().contains("Ready.fxml")) {
-            state=2;
+            state = 2;
             Name.setText(name);
             New_game.setOnMouseClicked(event -> {
-                if(startWaiting==false) {
+                if (startWaiting == false) {
                     startWaiting = true;
                     Waiting.setVisible(true);
                     Waiting.setText("Waiting...");
@@ -287,7 +287,7 @@ public class Client implements Initializable {
 //                //data shoe
 //            });
         } else if (location.toString().contains("mainUI.fxml")) {
-            state=3;
+            state = 3;
             P1_waiting.setText("Waiting");
             P2_waiting.setText("Waiting");
             System.out.println("my name:" + name);
@@ -328,7 +328,7 @@ public class Client implements Initializable {
             });
             Chess_Confirm.setOnMouseClicked(event -> {
                 if (!gameOver) {
-                    if(tmp_chose_x!=-1&&tmp_chose_y!=-1) {
+                    if (tmp_chose_x != -1 && tmp_chose_y != -1) {
                         Client_Main.client.sendMessage("Loc\n" + intToString(tmp_chose_x) + " " + intToString(tmp_chose_y) + "\n");
                         if ((player == 0 && !TURN) || (player == 1 && TURN)) {
                             if (refreshBoard(tmp_chose_x, tmp_chose_y)) {
@@ -350,7 +350,7 @@ public class Client implements Initializable {
                 Client_Main.client.sendMessage("Quit\n");
             });
         } else if (location.toString().contains("Settings.fxml")) {
-            state=4;
+            state = 4;
             if (my_chess != null)
                 tmp_chess_num = my_chess;
             else
@@ -418,7 +418,7 @@ public class Client implements Initializable {
                 SwitchScene(Client_Main.Ready, "Ready");
             });
         } else if (location.toString().contains("Record.fxml")) {
-            state=5;
+            state = 5;
             Back.setOnMouseClicked(event -> {
                 SwitchScene(Client_Main.Ready, "Ready");
             });
@@ -430,12 +430,12 @@ public class Client implements Initializable {
 //            } catch (IOException e) {
 //                throw new RuntimeException(e);
 //            }
-        }else if (location.toString().contains("ServerDown.fxml")) {
+        } else if (location.toString().contains("ServerDown.fxml")) {
             Fail_Text.setVisible(false);
             Reconnect.setOnMouseClicked(event -> {
                 try {
-                    Client_Main.client=new application.socket.Client(1234);
-                    SwitchScene(Client_Main.welcome,"welcome");
+                    Client_Main.client = new application.socket.Client(1234);
+                    SwitchScene(Client_Main.welcome, "welcome");
                 } catch (IOException e) {
                     Fail_Text.setVisible(true);
                 }
@@ -903,7 +903,7 @@ public class Client implements Initializable {
     private boolean handleMessage(String message) throws IOException {
         System.out.println(state);
         String[] array = message.split("\n");//0:welcome 1:reg/log 2:ready 3:mainUI 4 settings 5
-        if(state==3) {
+        if (state == 3) {
             if (array[0].contains("Loc")) {
                 String[] title = array[0].split(" ");
                 System.out.println("location");
@@ -942,7 +942,7 @@ public class Client implements Initializable {
                 return true;
             }
             if (array[0].equals("Finish")) {
-                if(array[1].equals("1")){
+                if (array[1].equals("1")) {
                     System.out.println("p2 Quit");
                     P2_waiting.setText("Quit");
                     P2_waiting.setVisible(true);
@@ -959,9 +959,9 @@ public class Client implements Initializable {
                 return true;
             }
         }
-        if(state==2) {
+        if (state == 2) {
             if (array[0].equals("Start")) {
-                startWaiting=false;
+                startWaiting = false;
                 player = Integer.parseInt(array[1]);
                 System.out.println("I'm player " + array[1]);
                 your_name = array[2];
@@ -972,7 +972,7 @@ public class Client implements Initializable {
                 return false;
             }
         }
-        if(state==1) {
+        if (state == 1) {
             if (array[0].equals("RegWrong")) {
                 Reg_Log_text.setText("Name Exist, Please change another one");
             }
@@ -983,7 +983,7 @@ public class Client implements Initializable {
             if (array[0].equals("LogIn")) {
                 System.out.println("LogIn");
                 name = array[1];
-                Client_Main.name=name;
+                Client_Main.name = name;
                 my_avatar = array[2];
                 my_chess = array[3];
 
@@ -995,7 +995,7 @@ public class Client implements Initializable {
             }
 
         }
-        if(state==5) {
+        if (state == 5) {
             if (array[0].equals("Record")) {
                 Win.setText(array[1]);
                 Total.setText(array[2]);
@@ -1003,17 +1003,17 @@ public class Client implements Initializable {
             }
         }
         if (array[0].equals("ServerDown")) {
-            SwitchScene(Client_Main.ServerDown,"NOOOO!");
+            SwitchScene(Client_Main.ServerDown, "NOOOO!");
             return true;
         }
         if (array[0].equals("CloseThread")) {
-            if(array[1].equals("Record")){
-                SwitchScene(Client_Main.Record,"Record");
+            if (array[1].equals("Record")) {
+                SwitchScene(Client_Main.Record, "Record");
             }
             return true;
         }
 
-        t1=new Thread(new ClientThread());
+        t1 = new Thread(new ClientThread());
         t1.start();
         return false;
 

@@ -45,7 +45,7 @@ public class Client_Main extends Application {
             Client_Main.primary_stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
                 public void handle(WindowEvent event) {
-                    Client_Main.client.sendMessage("LogOut\n"+name+"\n");
+                    Client_Main.client.sendMessage("LogOut\n" + name + "\n");
                     System.exit(0);
                 }
             });

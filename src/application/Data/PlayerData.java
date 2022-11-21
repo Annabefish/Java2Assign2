@@ -22,12 +22,11 @@ public class PlayerData {
             Map<String, String> data_tmp = new HashMap<>();
             data_tmp.put("name", s[0]);
             data_tmp.put("password", s[1]);
-            data_tmp.put("win", s[2].equals("")?"0":s[2]);
-            data_tmp.put("total", s[3].equals("")?"0":s[3]);
-            if(s[4].startsWith("\"")&&s[4].endsWith("\"")){
-                data_tmp.put("avatar", s[4].substring(1,s[4].length()-1));
-            }
-            else {
+            data_tmp.put("win", s[2].equals("") ? "0" : s[2]);
+            data_tmp.put("total", s[3].equals("") ? "0" : s[3]);
+            if (s[4].startsWith("\"") && s[4].endsWith("\"")) {
+                data_tmp.put("avatar", s[4].substring(1, s[4].length() - 1));
+            } else {
                 data_tmp.put("avatar", s[4]);
             }
             data_tmp.put("chess", s[5]);
