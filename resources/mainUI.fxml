@@ -16,7 +16,7 @@
       </ImageView>
       <Pane fx:id="Player1" prefHeight="232.0" prefWidth="164.0">
          <children>
-            <ImageView fx:id="P1_avatar" fitHeight="164.0" fitWidth="164.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="P1_avatar" fitHeight="164.0" fitWidth="164.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" />
             <Label fx:id="P1_waiting" layoutX="23.0" layoutY="202.0" prefHeight="32.0" prefWidth="118.0" text="Waiting..." textFill="#ffb2b2">
                <font>
                   <Font name="Palatino Linotype" size="23.0" />
@@ -54,5 +54,6 @@
          </children>
       </Pane>
       <Button fx:id="Chess_Confirm" layoutX="259.0" layoutY="374.0" mnemonicParsing="false" style="-fx-background-color: #dbddf4;" text="Confirm" />
+      <Button fx:id="Quit" layoutX="475.0" layoutY="21.0" mnemonicParsing="false" style="-fx-background-color: #3030d4;" text="Quit" textFill="#9dc9dd" />
    </children>
 </AnchorPane>

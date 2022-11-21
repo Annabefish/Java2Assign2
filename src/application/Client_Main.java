@@ -2,12 +2,14 @@ package application;
 
 import application.socket.Client;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.net.*;
@@ -20,8 +22,10 @@ public class Client_Main extends Application {
     public static String Ready = "Ready.fxml";
     public static String mainUI = "mainUI.fxml";
     public static String Record = "Record.fxml";
+    public static String ServerDown = "ServerDown.fxml";
     public static Stage primary_stage;
     public static Client client;
+    public static String name;
 
     @Override
 
@@ -38,6 +42,13 @@ public class Client_Main extends Application {
             stage.setTitle("Welcome");
             stage.setScene(root);
             primary_stage = stage;
+            Client_Main.primary_stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent event) {
+                    Client_Main.client.sendMessage("LogOut\n"+name+"\n");
+                    System.exit(0);
+                }
+            });
 
             stage.show();
 
